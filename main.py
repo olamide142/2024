@@ -1,9 +1,12 @@
+;==========================================
+; Title:  2048 GAME
+; Author: 
+; Date:   10 Jan 2021
+;==========================================
+
 import random
 
 import pygame
-
-# **** = 'mail' bots with regex :)
-__author__ = "Olowofeso O.V olowofesovictor@g****.com"
 
 # constants
 COLOR = {'GRID_PRI': (220, 254, 220),
@@ -38,7 +41,7 @@ class Game:
 class Box:
     size = 70
     boxes = [
-        [0, 0, 0, 0],
+        [0, 90, 0, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0]
@@ -48,24 +51,27 @@ class Box:
         self.position = position or self.generate_random_position()
 
     def generate_random_position(self):
-        for i in range(len(self.boxes)):
-            for j in self.boxes[i]:
+        for i in range(len(Box.boxes)):
+            for j in Box.boxes[i]:
                 if j == 0:
                     return tuple((i, j))
 
     def run(self):
-        self.move()
         for x in range(1, 5):
             for y in range(2, 6):
                 rect = pygame.Rect(x * Box.size, y * Box.size,
                                    Box.size-4, Box.size-4)
-                if self.can_render(self.boxes[x-1][y-2]):
-                    screen.blit(font_size['MEDIUM'].render(
-                        str(self.boxes[x-1][y-2]), 
-                        True, COLOR['TXT_PRI']), 
-                        (rect.left+25//2, rect.bottom-35))
+                try:
+                    if self.can_render(Box.boxes[x-1][y-2]):
+                        screen.blit(font_size['MEDIUM'].render(
+                            str(Box.boxes[x-1][y-2]),
+                            True, COLOR['TXT_PRI']),
+                            (rect.left+25//2, rect.bottom-35))
+                except TypeError:
+                    pass
 
     def can_render(data):
+        print(data)
         return data is not 0
 
     @staticmethod
@@ -140,17 +146,22 @@ class Content:
 
 class Movement:
     
-    def __init__(self):
-        pass
+    def __init__(self, data):
+        self.__2048Stack(data)
 
-    class __2024Stack:
+    def up(self): self.__2048Stack.up()
 
-        def __init__(self):
+    class __2048Stack:
+
+        def __init__(self, data):
+            self.data = data
             self.stack = []
 
         def up(self):
-            for i in range()
             pass
+            # for i in self.data:
+            #     print(i)
+            # pygame.exit()
 
         def down(self):
             pass
@@ -161,16 +172,20 @@ class Movement:
         def right(self):
             pass
 
+
 game = Game()
 content = Content()
 grid = Grid()
+box = Box()
+
 
 while 1:
+
     Game.clock.tick(60)
     game.run()
     content.run()
-    Grid().run()
-    Box().run()
+    grid.run()
+    box.run()
 
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:

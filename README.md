@@ -1,5 +1,5 @@
-# 2024
+# 2048
 
-## Implementing 2024 on pygame and a pack of Budweiser 
+## Implementing 2048 on pygame and a pack of Budweiser 
 
-"# 2024" 
+"# 2048" 
