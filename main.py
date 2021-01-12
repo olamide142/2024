@@ -1,8 +1,8 @@
-;==========================================
-; Title:  2048 GAME
-; Author: 
-; Date:   10 Jan 2021
-;==========================================
+# ==========================================
+# Title:  2048 GAME
+# Author: Olamide V.O
+# Date:   10 Jan 2021
+# ==========================================
 
 import random
 
@@ -32,7 +32,6 @@ class Game:
             self.__size_x,
             self.__size_y
         ))
-        
 
     def run(self):
         screen.fill(COLOR['GRID_PRI'])
@@ -41,38 +40,46 @@ class Game:
 class Box:
     size = 70
     boxes = [
-        [0, 90, 0, 0],
+        [9999, 0, 0, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0]
     ]
 
-    def __init__(self, position = 0):
-        self.position = position or self.generate_random_position()
+    def __init__(self, position=0):
+        print(self.generate_random_position())
+
+    def gen_starting_box(self):
+
+        a = random.choice(self.generate_random_position())
+        b = random.choice(self.generate_random_position())
+        if all(Box.can_render(a), Box.can_render(b), a != b):
+            Box.boxes[a[0]][a[1]] = random.choice([2, 4])
+            Box.boxes[b[0]][b[1]] = random.choice([2, 4])
 
     def generate_random_position(self):
+
         for i in range(len(Box.boxes)):
             for j in Box.boxes[i]:
                 if j == 0:
                     return tuple((i, j))
 
     def run(self):
+
         for x in range(1, 5):
             for y in range(2, 6):
                 rect = pygame.Rect(x * Box.size, y * Box.size,
-                                   Box.size-4, Box.size-4)
-                try:
-                    if self.can_render(Box.boxes[x-1][y-2]):
-                        screen.blit(font_size['MEDIUM'].render(
-                            str(Box.boxes[x-1][y-2]),
-                            True, COLOR['TXT_PRI']),
-                            (rect.left+25//2, rect.bottom-35))
-                except TypeError:
-                    pass
+                                   Box.size - 4, Box.size - 4)
 
+                if Box.can_render(Box.boxes[x - 1][y - 2]):
+                    screen.blit(font_size['MEDIUM'].render(
+                        str(Box.boxes[x - 1][y - 2]),
+                        True, COLOR['TXT_PRI']),
+                        (rect.left + 25 // 2, rect.bottom - 35))
+
+    @staticmethod
     def can_render(data):
-        print(data)
-        return data is not 0
+        return data != 0
 
     @staticmethod
     def move(key):
@@ -83,9 +90,8 @@ class Box:
         d = [Box.boxes[i][3] for i in range(4)]
 
         if key == pygame.K_UP:
-            data = (a,b,c,d)
+            data = (a, b, c, d)
             Movement(data).up()
-
 
 
 class Grid:
@@ -106,17 +112,14 @@ class Grid:
 class Content:
 
     def __init__(self):
-
         self.score = 0
         self.best = 0
 
     def update_best(self, data):
-
         self.best += data
         # update db
 
     def update_score(self, data):
-
         self.score += data
         if self.score > self.best:
             self.update_best(
@@ -124,7 +127,6 @@ class Content:
             )
 
     def run(self):
-
         global font_size
         font_size = {'BIG': pygame.font.Font(None, 72),
                      'MEDIUM': pygame.font.Font(None, 36),
@@ -145,11 +147,17 @@ class Content:
 
 
 class Movement:
-    
-    def __init__(self, data):
-        self.__2048Stack(data)
 
-    def up(self): self.__2048Stack.up()
+    def __init__(self):
+        pass
+
+    def up(self): self.__2048Stack().up()
+
+    def down(self): self.__2048Stack().down()
+
+    def left(self): self.__2048Stack().left()
+
+    def right(self): self.__2048Stack().right()
 
     class __2048Stack:
 
@@ -158,10 +166,9 @@ class Movement:
             self.stack = []
 
         def up(self):
-            pass
-            # for i in self.data:
-            #     print(i)
-            # pygame.exit()
+            for i in self.data:
+                print(i)
+            pygame.exit()
 
         def down(self):
             pass
@@ -178,7 +185,6 @@ content = Content()
 grid = Grid()
 box = Box()
 
-
 while 1:
 
     Game.clock.tick(60)
@@ -188,8 +194,10 @@ while 1:
     box.run()
 
     for event in pygame.event.get():
+
         if event.type == pygame.KEYDOWN:
             Box.move(event.key)
+
         if event.type == pygame.QUIT:
             pygame.quit()
 
