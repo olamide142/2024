@@ -40,14 +40,14 @@ class Game:
 class Box:
     size = 70
     boxes = [
-        [9999, 0, 0, 0],
+        [0, 0, 0, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0]
     ]
 
     def __init__(self, position=0):
-        print(self.generate_random_position())
+        self.generate__position()
 
     def gen_starting_box(self):
 
@@ -94,8 +94,42 @@ class Box:
             Movement(data).up()
 
 
-class Grid:
+class Movement:
+    
+    def __init__(self):
+        pass
 
+    def up(self): self.__2048Stack().up()
+
+    def down(self): self.__2048Stack().down()
+
+    def left(self): self.__2048Stack().left()
+
+    def right(self): self.__2048Stack().right()
+
+    class __2048Stack:
+
+        def __init__(self, data):
+            self.data = data
+            self.stack = []
+
+        def up(self):
+            for i in self.data:
+                print(i)
+            pygame.exit()
+
+        def down(self):
+            pass
+
+        def right(self):
+            pass
+
+        def right(self):
+            pass
+
+
+class Grid:
+    
     def __init__(self):
         pass
 
@@ -146,38 +180,6 @@ class Content:
             "2048", True, COLOR['TXT_SEC']), (25, 25))
 
 
-class Movement:
-
-    def __init__(self):
-        pass
-
-    def up(self): self.__2048Stack().up()
-
-    def down(self): self.__2048Stack().down()
-
-    def left(self): self.__2048Stack().left()
-
-    def right(self): self.__2048Stack().right()
-
-    class __2048Stack:
-
-        def __init__(self, data):
-            self.data = data
-            self.stack = []
-
-        def up(self):
-            for i in self.data:
-                print(i)
-            pygame.exit()
-
-        def down(self):
-            pass
-
-        def right(self):
-            pass
-
-        def right(self):
-            pass
 
 
 game = Game()
