@@ -42,18 +42,19 @@ class Box:
     boxes = [
         [0, 0, 0, 0],
         [0, 0, 0, 0],
-        [0, 0, 0, 0],
+        [0, 444, 0, 0],
         [0, 0, 0, 0]
     ]
 
     def __init__(self, position=0):
-        self.generate__position()
+        self.gen_starting_box()
 
     def gen_starting_box(self):
 
         a = random.choice(self.generate_random_position())
         b = random.choice(self.generate_random_position())
-        if all(Box.can_render(a), Box.can_render(b), a != b):
+
+        if all((Box.can_render(a), Box.can_render(b),  a != b)):
             Box.boxes[a[0]][a[1]] = random.choice([2, 4])
             Box.boxes[b[0]][b[1]] = random.choice([2, 4])
 
@@ -96,16 +97,17 @@ class Box:
 
 class Movement:
     
-    def __init__(self):
-        pass
+    def __init__(self, data):
+        self.data = data
 
-    def up(self): self.__2048Stack().up()
-
-    def down(self): self.__2048Stack().down()
-
-    def left(self): self.__2048Stack().left()
-
-    def right(self): self.__2048Stack().right()
+    def up(self):
+        self.__2048Stack(self.data).up()
+    def down(self):
+        self.__2048Stack(self.data).down()
+    def left(self):
+        self.__2048Stack(self.data).left()
+    def right(self):
+        self.__2048Stack(self.data).right()
 
     class __2048Stack:
 
@@ -178,8 +180,6 @@ class Content:
 
         screen.blit(font_size['BIG'].render(
             "2048", True, COLOR['TXT_SEC']), (25, 25))
-
-
 
 
 game = Game()
