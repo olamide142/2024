@@ -4,10 +4,12 @@
 # Date:   10 Jan 2021
 # ==========================================
 
+import sys
 import random
 
 import pygame
 
+# 2048
 # constants
 COLOR = {'GRID_PRI': (220, 254, 220),
          'GRID_SEC': (146, 169, 146),
@@ -15,7 +17,6 @@ COLOR = {'GRID_PRI': (220, 254, 220),
          'TXT_PRI': (48, 48, 56)}
 
 
-# 2048
 class Game:
     __size_x = 500
     __size_y = 500
@@ -40,10 +41,10 @@ class Game:
 class Box:
     size = 70
     boxes = [
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 444, 0, 0],
-        [0, 0, 0, 0]
+        [0, 50, 80, 0],
+        [0, 60, 70, 0],
+        [0, 0, 70, 0],
+        [0, 0, 80, 0]
     ]
 
     def __init__(self, position=0):
@@ -116,9 +117,8 @@ class Movement:
             self.stack = []
 
         def up(self):
-            for i in self.data:
-                print(i)
-            pygame.exit()
+            print(self.data)
+            sys.exit()
 
         def down(self):
             pass
@@ -195,6 +195,9 @@ while 1:
     grid.run()
     box.run()
 
+    pygame.display.flip()
+    pygame.display.update()
+
     for event in pygame.event.get():
 
         if event.type == pygame.KEYDOWN:
@@ -203,5 +206,3 @@ while 1:
         if event.type == pygame.QUIT:
             pygame.quit()
 
-    pygame.display.flip()
-    pygame.display.update()
