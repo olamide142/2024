@@ -34,5 +34,5 @@ stack = []
 
 def stack_it_left(data):
     for datum in data:
-        if len(stack) 
+        if len(stack)
 
