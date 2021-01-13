@@ -41,8 +41,8 @@ class Game:
 class Box:
     size = 70
     boxes = [
-        [0, 50, 80, 0],
-        [0, 60, 70, 0],
+        [0, 50, 50, 0],
+        [0, 50, 70, 0],
         [0, 0, 70, 0],
         [0, 0, 80, 0]
     ]
@@ -62,7 +62,7 @@ class Box:
     def generate_random_position(self):
 
         for i in range(len(Box.boxes)):
-            for j in Box.boxes[i]:
+            for  j in Box.boxes[i]:
                 if j == 0:
                     return tuple((i, j))
 
@@ -90,7 +90,6 @@ class Box:
         b = [Box.boxes[i][1] for i in range(4)]
         c = [Box.boxes[i][2] for i in range(4)]
         d = [Box.boxes[i][3] for i in range(4)]
-
         if key == pygame.K_UP:
             data = (a, b, c, d)
             Movement(data).up()
@@ -117,18 +116,32 @@ class Movement:
             self.stack = []
 
         def up(self):
-            print(self.data)
-            sys.exit()
+            for datum in self.data:
+
+                
+
 
         def down(self):
             pass
 
         def right(self):
+            for data in self.data:
+                
             pass
 
         def right(self):
             pass
+        
+        def stack_it(self, data):
+            if len(self.stack) == 0:
+                self.stack.append(data[0])
+            for i in range(1,4):
 
+
+
+            
+                   
+            pass
 
 class Grid:
     
@@ -205,4 +218,3 @@ while 1:
 
         if event.type == pygame.QUIT:
             pygame.quit()
-
