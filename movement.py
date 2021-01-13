@@ -1,28 +1,30 @@
+from stack import *
+import numpy as np
+
 class Movement:
     
     def __init__(self, data):
         self.data = data
+        self.stack = []
 
     def up(self):
-        self.__2048Stack(self.data).up()
+        for datum in self.data:
+            self.stack.append(stack_it_up(datum))
+        return np.array(self.stack).transpose().tolist()
+
     def down(self):
-        self.__2048Stack(self.data).down()
+        for datum in self.data:
+            self.stack.append(stack_it_right(datum))
+        return np.array(self.stack).transpose().tolist()
+    
     def left(self):
-        self.__2048Stack(self.data).left()
+        for datum in self.data:
+            self.stack.append(stack_it_left(datum))
+        return np.array(self.stack).transpose().tolist()
+
+    
     def right(self):
-        self.__2048Stack(self.data).right()
-
-    class __2048Stack:
-
-        def __init__(self, data):
-            self.data = data
-            self.stack = []
-
-        def right(self):
-            for datum in self.data:
-                self.stack.append(stack_it_right(datum))
-        print(stack)
-
-
-        def down(self):
-            pass
+        for datum in self.data:
+            self.stack.append(stack_it_right(datum))
+        print(np.array(self.stack).tolist())
+        return np.array(self.stack).tolist()
